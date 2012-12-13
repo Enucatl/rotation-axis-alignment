@@ -17,10 +17,8 @@ class TipFinder(object):
             min_distance=100,
             threshold=0.3,
             gaussian_deviation=5))
-        x, y = x[0], y[0]
         n = x.size
-        if n != 1:
-            print("WARNING:", len(x), "tips found!")
+        x, y = x[0], y[0]
         return x, y, n
 
 if __name__ == '__main__':
