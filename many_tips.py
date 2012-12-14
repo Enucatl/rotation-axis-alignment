@@ -30,6 +30,7 @@ for i, file_name in enumerate(file_names):
     image_ids.append(image_id)
 
 print(progress_bar(1), end='')
+print()
 import ROOT
 from rootstyle import tdrstyle
 tdrstyle()
@@ -48,7 +49,7 @@ graph_y.Draw("ap")
 root_file_name = "positions.root"
 root_file = ROOT.TFile(root_file_name, "recreate")
 root_file.cd()
-graph_x.Write()
-graph_y.Write()
+graph_x.Write("graph_x")
+graph_y.Write("graph_y")
 root_file.Close()
 raw_input()
