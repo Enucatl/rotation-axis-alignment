@@ -29,6 +29,7 @@ for i, file_name in enumerate(file_names):
     image_id = int(file_name.split("_")[3])
     image_ids.append(image_id)
 
+n = len(image_ids)
 print(progress_bar(1), end='')
 print()
 import ROOT
