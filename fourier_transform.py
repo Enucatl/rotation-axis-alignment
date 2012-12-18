@@ -17,22 +17,26 @@ graph_x_name = "graph_x"
 graph_x = root_file.Get(graph_x_name)
 
 n = graph_x.GetN()
-a = numpy.empty(n)
-
-y_points = graph_x.GetY()
-for i in range(n):
-    a[i] = y_points[i]
-
-a = a[:100]
-transformed = numpy.fft.fft(a)
-for item in transformed:
-    print(item)
-
 tdrstyle()
+graph_canvas_name = "graph_canvas"
+graph_canvas = ROOT.TCanvas(
+        graph_canvas_name,
+        graph_canvas_name)
 graph_x.Draw("ap")
-function = ROOT.TF1("cosine", "[0] + [1] * sin([2] * (x + [3]))", 0, 195)
-function.SetParameters(525, 375, math.pi / 180, -122)
-function.SetNpx(10000)
-graph_x.Fit("cosine")
 
+histogram = ROOT.TH1D("height_difference",
+        "height difference; file_id; height difference #(){pixel}",
+        180, 0, 180)
+for i in range(int(math.floor(n/2))):
+    difference = graph_x.Eval(i) - graph_x.Eval(i + 180)
+    histogram.SetBinContent(i + 1, difference)
+
+histogram_canvas_name = "histogram_canvas"
+histogram_canvas = ROOT.TCanvas(
+        histogram_canvas_name,
+        histogram_canvas_name)
+histogram.Draw()
+
+graph_y_name = "graph_y"
+graph_y = root_file.Get(graph_y_name)
 raw_input()
